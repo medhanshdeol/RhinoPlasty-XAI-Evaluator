@@ -22,3 +22,11 @@ By leveraging **RGB-D (Color + True Depth)** capabilities, this tool bypasses th
 - **Computer Vision:** OpenCV, Google MediaPipe FaceLandmarker
 - **Math/Alignment:** NumPy (Procrustes Analysis)
 - **Frontend:** Vanilla JS, HTML, Custom CSS
+
+<img width="1895" height="1033" alt="image" src="https://github.com/user-attachments/assets/170d5308-c533-4507-b0e0-c79f5d9d4589" />
+
+<img width="1882" height="1037" alt="image" src="https://github.com/user-attachments/assets/f09dc302-d951-43f2-8e7f-13bf4688a31b" />
+
+<img width="1890" height="1002" alt="image" src="https://github.com/user-attachments/assets/d803a210-8239-481a-b51d-a1be78b24025" />
+
+
