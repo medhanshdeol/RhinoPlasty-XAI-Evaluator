@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+torch
+torchvision
+torchaudio
+opencv-python
+mediapipe==0.10.35
+numpy
+pandas
+scikit-learn
+shap
+grad-cam
+python-multipart

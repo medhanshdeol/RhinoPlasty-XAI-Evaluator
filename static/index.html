@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhinoplasty XAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- Grainy noise overlay -->
+    <div class="noise-bg"></div>
+    
+    <nav class="top-nav">
+        <a href="#" class="active">Rhinoplasty XAI Tool</a>
+    </nav>
+
+    <div class="main-wrapper">
+        <header class="hero">
+            <!-- Left Star -->
+            <svg class="star star-left" viewBox="0 0 24 24" fill="white"><path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z"/></svg>
+            <!-- Right Star -->
+            <svg class="star star-right" viewBox="0 0 24 24" fill="white"><path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z"/></svg>
+            
+            <h1 class="hero-title">Hi. I'm Rhinoplasty XAI.<br>A Clinical Tool.</h1>
+            <p class="hero-subtitle">I'm passionate about mapping post-operative surgical outcomes<br>to your intended clinical plan.</p>
+        </header>
+
+        <main>
+            <div class="cards-layout">
+                <!-- Plan Card -->
+                <div class="large-card card-purple">
+                    <div class="card-header">
+                        <span class="eyebrow">RHINOPLASTY</span>
+                        <h2>Plan</h2>
+                    </div>
+                    <div class="card-inner">
+                        <div class="upload-zone" id="plan-upload">
+                            <p>Upload the pre-op or simulated plan image</p>
+                            <input type="file" id="plan-input" accept="image/*" hidden>
+                            <div class="btn-group" style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; align-items: center;">
+                                <button class="btn btn-purple" onclick="document.getElementById('plan-input').click()">Select Image</button>
+                                <button class="btn btn-purple" id="plan-laptop-btn">Laptop Cam</button>
+                                <button class="btn btn-purple" id="plan-phone-btn">Phone Cam</button>
+                            </div>
+                            <div style="margin-bottom: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);">
+                                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin: 0 0 5px 0;">Optional: True Depth Map (RGB-D)</p>
+                                <input type="file" id="plan-depth-input" accept="image/*" hidden>
+                                <button class="btn btn-purple" style="padding: 5px 10px; font-size: 0.8rem; background: rgba(255,255,255,0.1);" onclick="document.getElementById('plan-depth-input').click()">Upload Depth Map</button>
+                                <div id="plan-depth-status" style="font-size: 0.8rem; margin-top: 5px; color: var(--success);"></div>
+                            </div>
+                            <video id="plan-video" autoplay playsinline style="display: none; width: 100%; border-radius: 8px;"></video>
+                            <button class="btn btn-purple" id="plan-capture-btn" style="display: none; width: 100%; margin-bottom: 15px;">Capture</button>
+                            <div class="preview-container" id="plan-preview"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actual Card -->
+                <div class="large-card card-mint">
+                    <div class="card-header">
+                        <span class="eyebrow">RHINOPLASTY</span>
+                        <h2>Actual</h2>
+                    </div>
+                    <div class="card-inner">
+                        <div class="upload-zone" id="actual-upload">
+                            <p>Upload the post-operative patient image</p>
+                            <input type="file" id="actual-input" accept="image/*" hidden>
+                            <div class="btn-group" style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; align-items: center;">
+                                <button class="btn btn-mint" onclick="document.getElementById('actual-input').click()">Select Image</button>
+                                <button class="btn btn-mint" id="actual-laptop-btn">Laptop Cam</button>
+                                <button class="btn btn-mint" id="actual-phone-btn">Phone Cam</button>
+                            </div>
+                            <div style="margin-bottom: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);">
+                                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin: 0 0 5px 0;">Optional: True Depth Map (RGB-D)</p>
+                                <input type="file" id="actual-depth-input" accept="image/*" hidden>
+                                <button class="btn btn-mint" style="padding: 5px 10px; font-size: 0.8rem; background: rgba(255,255,255,0.1);" onclick="document.getElementById('actual-depth-input').click()">Upload Depth Map</button>
+                                <div id="actual-depth-status" style="font-size: 0.8rem; margin-top: 5px; color: var(--success);"></div>
+                            </div>
+                            <video id="actual-video" autoplay playsinline style="display: none; width: 100%; border-radius: 8px;"></video>
+                            <button class="btn btn-mint" id="actual-capture-btn" style="display: none; width: 100%; margin-bottom: 15px;">Capture</button>
+                            <div class="preview-container" id="actual-preview"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                <div class="slider-container" style="width: 100%; max-width: 400px; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <label for="satisfaction-slider" style="color: white; font-family: 'Inter', sans-serif; display: block; margin-bottom: 10px; font-weight: 500;">Patient Satisfaction Score: <span id="satisfaction-val" style="color: var(--text-mint);">5.0</span> / 10</label>
+                    <input type="range" id="satisfaction-slider" min="0" max="10" step="0.5" value="5.0" style="width: 100%;">
+                </div>
+                <button id="analyze-btn" class="btn primary-btn" disabled>Analyze Discrepancies</button>
+            </div>
+            
+            <!-- Hidden Canvas for Image Capture -->
+            <canvas id="capture-canvas" style="display: none;"></canvas>
+
+            <!-- Loading Spinner -->
+            <div id="loader" class="loader hidden">
+                <div class="spinner"></div>
+                <p style="color: var(--text-mint); text-align: center; font-weight: 500;">Running Procrustes Alignment & AI Analysis...</p>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="results-section hidden">
+                <h2 style="color: var(--text-mint); text-align: center; font-family: 'Bricolage Grotesque', sans-serif; font-size: 3rem; margin-bottom: 3rem;">Analysis Results</h2>
+                
+                <div class="cards-layout">
+                    <!-- Heatmap Card -->
+                    <div class="large-card card-dark heatmap-container">
+                        <h3 style="color: #fff; margin-bottom: 1.5rem; font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.8rem;">Anomaly Heatmap</h3>
+                        <div class="card-inner">
+                            <img id="heatmap-image" src="" alt="Anomaly Heatmap">
+                            <div class="legend">
+                                <span class="cool">Low Deviation (0)</span>
+                                <div class="gradient-bar"></div>
+                                <span class="warm">High Deviation (1)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Card -->
+                    <div class="large-card card-dark metrics-container">
+                        <h3 style="color: #fff; margin-bottom: 1.5rem; font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.8rem;">Clinical Scores</h3>
+                        <div class="card-inner">
+                            <div id="metrics-grid" class="metrics-grid">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/app.js?v=6"></script>
+</body>
+</html>
